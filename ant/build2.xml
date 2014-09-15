@@ -1,0 +1,34 @@
+<project name="sample build file" basedir="." default="compile">    
+
+    <description>
+        My second ant build file.
+    </description>
+
+    <property name="src.dir" location="${basedir}/src" />
+    <property name="build.dir" location="${basedir}/build" />
+    <property name="classes.dir" location="${build.dir}/classes" />
+    <property name="jar.dir" location="${build.dir}/jar" />
+
+    <target name="clean">
+        <delete dir="build"/>
+    </target>
+
+    <target name="compile">
+        <mkdir dir="${classes.dir}"/>
+        <javac srcdir="${src.dir}" destdir="${classes.dir}" includeantruntime="false"/>
+    </target>
+
+    <target name="jar">
+        <mkdir dir="build/jar"/>
+        <jar destfile="${jar.dir}/Hello.jar" basedir="${classes.dir}">
+            <manifest>
+                <attribute name="Main-Class" value="Hello"/>
+            </manifest>
+        </jar>
+    </target>
+
+    <target name="run">
+        <java jar="${jar.dir}/Hello.jar" fork="true" inputstring="Jeff"/>
+    </target>
+
+</project>
